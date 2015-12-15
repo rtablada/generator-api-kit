@@ -1,0 +1,39 @@
+{
+  "name": "<%= utils.slug(projectName) %>",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "new-user": "node ./bin/create-user",
+    "new-oauth-client": "node ./bin/create-oauth-client"
+  },
+  "dependencies": {
+    "auto-loader": "^0.2.0",
+    "bcrypt": "^0.8.5",
+    "body-parser": "^1.14.1",
+    "config": "^1.17.1",
+    "debug": "^2.2.0",
+    "dot-object": "^1.3.1",
+    "express": "^4.13.3",
+    "express-mailer": "^0.3.0",
+    "moment": "^2.10.6",
+    "mongoose": "^4.2.7",
+    "morgan": "^1.6.1",
+    "mystique": "^0.4.0",
+    "oauth-kit": "^1.0.0",
+    "oauth2-server": "^2.4.1",
+    "prompt": "^0.2.14",
+    "random-gen": "0.0.200",
+    "serve-favicon": "^2.3.0",
+    "sha1": "^1.1.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-mocha": "^2.2.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-run": "^1.6.11",
+    "gulp-watch": "^4.3.5",
+    "lodash": "^3.10.1",
+    "should": "^7.1.1"
+  }
+}

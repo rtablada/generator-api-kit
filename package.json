@@ -1,0 +1,26 @@
+{
+  "name": "generator-api-kit",
+  "version": "1.0.0",
+  "description": "A simple API starter kit with OAuth",
+  "files": [
+    "app"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "author": "Ryan Tablada <ryan.tablada@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "keystone-utils": "^0.3.0",
+    "lodash": "^3.10.1",
+    "yeoman-generator": "^0.21.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rtablada/generator-api-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rtablada/generator-api-kit/issues"
+  },
+  "homepage": "https://github.com/rtablada/generator-api-kit#readme"
+}

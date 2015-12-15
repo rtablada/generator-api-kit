@@ -1,0 +1,21 @@
+{
+  "mail": {
+    "transport": "SMTP",
+    "config": {
+      "service": "Mandrill",
+      "auth": {
+        "user": "",
+        "pass": ""
+      }
+    },
+    "defaultFromEmail": ""
+  },
+  "oauth": {
+    "signingOrigins": [
+      {
+        "clientId": "super-site",
+        "origin": "http://localhost:4200"
+      }
+    ]
+  }
+}
