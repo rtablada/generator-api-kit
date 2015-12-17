@@ -5,12 +5,10 @@ var oauth = require('../oauth');
 
 var resources = require('auto-loader').load(__dirname + '/resources');
 
-var register = require('./resources/register');
+// Namespaces API resources to /api
+router.use('/api', apiRouter);
 
 apiRouter.use('/register', resources.register);
-
 apiRouter.use('/books', oauth.authorise(), resources.books);
-
-router.use('/api', apiRouter);
 
 module.exports = router;
