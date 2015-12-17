@@ -7,6 +7,7 @@ var _s = require('underscore.string');
 var pluralize = require('pluralize');
 
 var schemaPropString = require('./schema-str');
+var transformerHelpers = require('./helpers/transformer');
 
 var SchemaGenerator = module.exports = function SchemaGenerator(args) {
   console.log(args);
@@ -37,10 +38,12 @@ SchemaGenerator.prototype.files = function files(name) {
   this.schemaFields = (typeof fields !== 'undefined') ? fields : ['title:String', 'content:String', 'created:Date'];
   this.mockData = '{}';
   this.schemaProps = schemaPropString(this.schemaFields);
+  this.mapInProps = transformerHelpers.mapInProps(this.schemaName, this.schemaFields);
+  this.mapOutProps = transformerHelpers.mapOutProps(this.schemaName, this.schemaFields);
 
   this.template('_schema.js', `app/models/${name}.js`);
   this.template('_api.js', `app/http/resources/${this.pluralName}.js`);
-
+  this.template('_transformer.js', `app/transformers/${name}.js`);
 };
 
 SchemaGenerator.prototype.schematic = function schematic() {
