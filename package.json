@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "A simple API starter kit with OAuth",
   "files": [
-    "app"
+    "app",
+    "resource"
   ],
   "keywords": [
     "yeoman-generator"
@@ -13,6 +14,7 @@
   "dependencies": {
     "keystone-utils": "^0.3.0",
     "lodash": "^3.10.1",
+    "request": "^2.67.0",
     "yeoman-generator": "^0.21.1"
   },
   "repository": {
