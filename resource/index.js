@@ -42,7 +42,7 @@ SchemaGenerator.prototype.files = function files(name) {
   this.mapOutProps = transformerHelpers.mapOutProps(this.schemaName, this.schemaFields);
 
   this.template('_schema.js', `app/models/${name}.js`);
-  this.template('_api.js', `app/http/resources/${this.pluralName}.js`);
+  this.template('_api.js', `app/http/resources/public/${this.pluralName}.js`);
   this.template('_transformer.js', `app/transformers/${name}.js`);
 };
 
