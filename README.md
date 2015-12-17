@@ -118,3 +118,40 @@ Now we can go to `http://localhost:3000/api/todos` to see our new API for todos:
   "todos": []
 }
 ```
+
+If we POST to `http://localhost:3000/api/todos` with the body:
+
+```json
+{
+  "todo": {
+    "name": "Milk",
+    "done": false
+  }
+}
+```
+
+Then we should get a response with an id:
+
+```json
+{
+  "todo": {
+    "id": "5671cffe881ee28a7877118c",
+    "name": "Milk",
+    "done": false
+  }
+}
+```
+
+And if we make a GET request for `http://localhost:3000/api/todos`:
+
+```json
+{
+  "todos": [
+    {
+      "id": "5671cffe881ee28a7877118c",
+      "name": "Milk",
+      "done": false
+    }
+  ]
+}
+```
