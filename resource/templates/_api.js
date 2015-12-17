@@ -29,7 +29,7 @@ api.delete<%= capSchemaName %> = function(req) {
 };
 
 router.get('/<%= pluralName %>', api.<%= pluralName %>);
-router.post('/<%= lowSchemaName %>', api.add<%= capSchemaName %>);
+router.post('/<%= pluralName %>', api.add<%= capSchemaName %>);
 
 router.route('/<%= pluralName %>/:id')
   .get(api.<%= lowSchemaName %>)
