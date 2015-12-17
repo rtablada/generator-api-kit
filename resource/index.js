@@ -4,11 +4,11 @@ var request = require('request');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var _s = require('underscore.string');
-var mkdirp = require('mkdirp');
+var pluralize = require('pluralize');
 
 var schemaPropString = require('./schema-str');
 
-var SchemaGenerator = module.exports = function SchemaGenerator(args, options, config) {
+var SchemaGenerator = module.exports = function SchemaGenerator(args) {
   console.log(args);
 
   // By calling `NamedBase` here, we get the argument to the subgenerator call
@@ -31,14 +31,15 @@ util.inherits(SchemaGenerator, yeoman.generators.NamedBase);
 SchemaGenerator.prototype.files = function files(name) {
   var fields = Array.from(arguments).slice(1);
   this.schemaName = name;
+  this.pluralName = pluralize(name);
   this.capSchemaName = _s.capitalize(this.schemaName);
   this.lowSchemaName = this.schemaName.toLowerCase();
   this.schemaFields = (typeof fields !== 'undefined') ? fields : ['title:String', 'content:String', 'created:Date'];
   this.mockData = '{}';
   this.schemaProps = schemaPropString(this.schemaFields);
 
-  this.template('_api.js', 'app/http/resources/' + name + '.js');
-  this.template('_schema.js', 'app/models/' + name + '.js');
+  this.template('_schema.js', `app/models/${name}.js`);
+  this.template('_api.js', `app/http/resources/${this.pluralName}.js`);
 
 };
 
@@ -46,7 +47,7 @@ SchemaGenerator.prototype.schematic = function schematic() {
   this.mockData = '{}';
   var props = {};
 
-  this.schemaFields.forEach(function(field, index) {
+  this.schemaFields.forEach(function(field) {
     var fld = field.split(':')[0];
     var type = field.split(':')[1];
     var lowerType = type.toLowerCase();
