@@ -6,7 +6,7 @@ var chalk = require('chalk');
 var _s = require('underscore.string');
 var pluralize = require('pluralize');
 
-var schemaPropString = require('./schema-str');
+var modelHelpers = require('./helpers/model');
 var transformerHelpers = require('./helpers/transformer');
 
 var SchemaGenerator = module.exports = function SchemaGenerator(args) {
@@ -37,9 +37,12 @@ SchemaGenerator.prototype.files = function files(name) {
   this.lowSchemaName = this.schemaName.toLowerCase();
   this.schemaFields = (typeof fields !== 'undefined') ? fields : ['title:String', 'content:String', 'created:Date'];
   this.mockData = '{}';
-  this.schemaProps = schemaPropString(this.schemaFields);
+  this.schemaProps = modelHelpers.schemaProps(this.schemaFields);
+  this.relationships = modelHelpers.relationships(this.schemaName, this.schemaFields);
   this.mapInProps = transformerHelpers.mapInProps(this.schemaName, this.schemaFields);
   this.mapOutProps = transformerHelpers.mapOutProps(this.schemaName, this.schemaFields);
+
+  console.log(this.relationships);
 
   this.template('_schema.js', `app/models/${name}.js`);
   this.template('_api.js', `app/http/resources/public/${this.pluralName}.js`);
