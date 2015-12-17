@@ -1,9 +1,8 @@
 // Module dependencies.
-var express = require('express'),
-    router = express.Router(),
-    mongoose = require('mongoose'),
-    <%= capSchemaName %> = mongoose.models.<%= capSchemaName %>,
-    api = {};
+var express = require('express');
+var router = express.Router();
+var mongoose = require('mongoose');
+var api = {};
 
 // ALL
 api.<%= pluralName %> = function (req, res) {
@@ -29,7 +28,6 @@ api.edit<%= capSchemaName %> = function (req, res) {
 api.delete<%= capSchemaName %> = function (req, res) {
   return req.store.destroyRecord('<%= capSchemaName %>', req.params.id);
 };
-
 
 router.get('/<%= pluralName %>', api.<%= pluralName %>);
 router.post('/<%= lowSchemaName %>', api.add<%= capSchemaName %>);
