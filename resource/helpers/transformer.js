@@ -11,7 +11,7 @@ module.exports = {
     return schemaFields.map(function(field) {
       var key = field.split(':')[0];
 
-      return `${key}: req.body.${schemaName}.${key}`;
+      return `${key}: req.getJson('${schemaName}.${key}')`;
     }).join(',\n      ') + ',';
   },
 };
