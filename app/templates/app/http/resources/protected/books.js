@@ -1,19 +1,24 @@
+// Module dependencies.
 var express = require('express');
 var router = express.Router();
+var api = {};
 
-router.get('/', function(req) {
+// ALL
+api.books = function(req) {
   return req.store.recordCollection('Book', {
     include: ['author'],
     queryBy: ['year'],
     orderBy: 'year',
   });
-});
+};
 
-router.get('/:id', function(req) {
+// GET
+api.book = function(req) {
   return req.store.recordItemById('Book', req.params.id);
-});
+};
 
-router.post('/', function(req) {
+// POST
+api.addBook = function(req) {
   return req.store.createRecord('Book', {
     include: ['author'],
     beforeSave: (book, save) => {
@@ -28,14 +33,24 @@ router.post('/', function(req) {
       author.save();
     },
   });
-});
+};
 
-router.put('/:id', function(req) {
-  return req.store.updateRecord('Book', {include: ['author']}, req.params.id);
-});
+// PUT
+api.editBook = function(req) {
+  return req.store.updateRecord('Book', req.params.id, {include: ['author']});
+};
 
-router.delete('/:id', function(req) {
+// DELETE
+api.deleteBook = function(req) {
   return req.store.destroyRecord('Book', req.params.id);
-});
+};
+
+router.get('/books', api.books);
+router.post('/book', api.addBook);
+
+router.route('/book/:id')
+  .get(api.book)
+  .put(api.editBook)
+  .delete(api.deleteBook);
 
 module.exports = router;

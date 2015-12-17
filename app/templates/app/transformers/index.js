@@ -1,4 +1,3 @@
-module.exports = {
-  User: require('./user'),
-  Book: require('./book'),
-};
+var loader = require('flat-load');
+
+module.exports = loader(__dirname);
