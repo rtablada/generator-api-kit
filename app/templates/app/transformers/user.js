@@ -4,7 +4,7 @@ var UserTransformer = new Mystique.Transformer({
   resourceName: 'user',
   map: function(user) {
     return {
-      _id: user.id,
+      id: user.id,
       email: user.email,
     };
   },
