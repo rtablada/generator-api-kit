@@ -4,6 +4,7 @@ var <%= capSchemaName %>Transformer = Mystique.Transformer.extend({
   resourceName: '<%= lowSchemaName %>',
   mapOut: function(<%= lowSchemaName %>) {
     return {
+      id: <%= lowSchemaName %>.id,
       <%= mapInProps %>
     };
   },
