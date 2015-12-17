@@ -37,10 +37,19 @@ module.exports = function(req, res, next) {
       var urlParts = url.parse(req.url, true);
 
       var searchvValues = _.pick(urlParts.query, options.queryBy);
+
+      if (urlParts.ids) {
+        searchvValues._id = urlParts.ids;
+      }
+
       var query = Model.find(searchvValues)
         .sort(urlParts.query.orderBy || options.orderBy)
         .populate(options.include)
         .exec((err, results) => {
+          if (err) {
+            return res.status(500).send(err);
+          }
+
           req.store.renderCollection(results, modelName, options);
         });
     },
@@ -60,7 +69,7 @@ module.exports = function(req, res, next) {
       beforeSave(model, () => {
         model.save((err) => {
           if (err) {
-            return res.send({err});
+            return res.status(500).send(err);
           }
 
           model.populate(options.include, () => {
@@ -80,7 +89,57 @@ module.exports = function(req, res, next) {
       Model.findById(id)
         .populate([])
         .exec((err, model) => {
+          if (err) {
+            return res.status(500).send(err);
+          }
+
           req.store.renderItem(model, modelName, options);
+        });
+    },
+
+    updateRecord(modelName, id, options) {
+      options = options || {};
+      options.include = options.include || [];
+      var beforeSave = options.beforeSave || defaultBeforeSave;
+      var afterSave = options.afterSave || () => {};
+
+      var Transformer = Mystique.getTransformer(modelName);
+
+      var data = Transformer.rawItem(req, Transformer.mapIn);
+      var Model = Mongoose.model(modelName);
+
+      Model.findById(id)
+        .populate([])
+        .exec((err, model) => {
+          beforeSave(model, () => {
+            if (err) {
+              return res.status(500).send(err);
+            }
+
+            model.set(data);
+            model.save((err) => {
+              if (err) {
+                return res.status(500).send(err);
+              }
+
+              req.store.renderItem(model, modelName, options);
+
+              afterSave(model);
+            });
+          });
+        });
+    },
+
+    destroyRecord(modelName, id) {
+      var Model = Mongoose.model(modelName);
+
+      Model.remove({_id: id})
+        .exec((err, model) => {
+          if (err) {
+            return res.status(500).send(err);
+          }
+
+          req.status(204).send();
         });
     },
   };
