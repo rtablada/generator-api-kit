@@ -14,23 +14,15 @@ api.books = function(req) {
 
 // GET
 api.book = function(req) {
-  return req.store.recordItemById('Book', req.params.id);
+  return req.store.recordItemById('Book', req.params.id, {include: ['author']});
 };
 
 // POST
 api.addBook = function(req) {
   return req.store.createRecord('Book', {
-    include: ['author'],
     beforeSave: (book, save) => {
       book.author = req.user;
       save();
-    },
-
-    afterSave: (book) => {
-      var author = book.author;
-
-      author.books.push(book);
-      author.save();
     },
   });
 };
@@ -46,9 +38,9 @@ api.deleteBook = function(req) {
 };
 
 router.get('/books', api.books);
-router.post('/book', api.addBook);
+router.post('/books', api.addBook);
 
-router.route('/book/:id')
+router.route('/books/:id')
   .get(api.book)
   .put(api.editBook)
   .delete(api.deleteBook);

@@ -1,5 +1,5 @@
 {
-  "name": "<%= utils.slug(projectName) %>",
+  "name": "testkit",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -20,6 +20,7 @@
     "lodash": "^3.10.1",
     "moment": "^2.10.6",
     "mongoose": "^4.2.7",
+    "mongoose-relationship": "^0.1.4",
     "morgan": "^1.6.1",
     "mystique": "^0.4.0",
     "oauth-kit": "^1.0.0",
