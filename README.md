@@ -109,7 +109,12 @@ This command also registers the route in `app/http/routes.js`:
 apiRouter.use('/todos', resources.todos);
 ```
 
-And registers the model and transformer with an autoloader.
+> With API Kit v1.x we still have to register our new resource with the router in `app/http/routes.js` add `apiRouter.use(resources.todos);`
+
+> With API Kit v1.x we still have to register our new model in `app/models/index.js` add `Todo: models.todo,`
+
+> With API Kit v1.x we still have to register our new transformer in `app/transformers/index.js` add `Todo: require('./todo'),``
+
 
 Now we can go to `http://localhost:3000/api/todos` to see our new API for todos:
 
