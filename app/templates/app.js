@@ -1,8 +1,12 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
+var cors = require('cors');
 
 var app = express();
+
+// Allow CORS, you may want to configure this for your domains
+app.use(cors());
 
 require('./bootstrap/middleware')(app);
 
