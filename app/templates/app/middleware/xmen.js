@@ -139,7 +139,7 @@ module.exports = function(req, res, next) {
             return res.status(500).send(err);
           }
 
-          req.status(204).send();
+          res.status(204).send();
         });
     },
   };
