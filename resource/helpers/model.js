@@ -12,7 +12,11 @@ module.exports = {
         case 'ObjectId':
           return `${key}: { type: ${schemaType}, ref: ${ref} }`;
         case 'BelongsTo':
-          return `${key}: { type: ObjectId, ref: '${ref}', childPath: '${childPath}' }`;
+          if (childPath) {
+            return `${key}: { type: ObjectId, ref: '${ref}', childPath: '${childPath}' }`;
+          }
+
+          return `${key}: { type: ObjectId, ref: '${ref}' }`;
         case 'HasMany':
           return `${key}: [{ type: ObjectId, ref: '${ref}' }]`;
         case 'Array':
@@ -27,12 +31,13 @@ module.exports = {
     return schemaFields.map(function(field) {
       var key = field.split(':')[0];
       var schemaType = field.split(':')[1];
+      var childPath = field.split(':')[3];
 
-      if (schemaType === 'BelongsTo') {
-        return `${modelName}Schema.plugin(relationship, {relationshipPathName: '${key}'})`;
+      if (schemaType === 'BelongsTo' && childPath) {
+        return `${modelName}Schema.plugin(relationship, {relationshipPathName: '${key}'});`;
       }
     }).filter(function(schema) {
       return schema;
-    }).join(';') + ';';
+    }).join('\n');
   },
 };
