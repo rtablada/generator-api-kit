@@ -38,7 +38,7 @@ SchemaGenerator.prototype.files = function files(name) {
   this.schemaFields = (typeof fields !== 'undefined') ? fields : ['title:String', 'content:String', 'created:Date'];
   this.mockData = '{}';
   this.schemaProps = modelHelpers.schemaProps(this.schemaFields);
-  this.relationships = modelHelpers.relationships(this.schemaName, this.schemaFields);
+  this.relationships = modelHelpers.relationships(this.capSchemaName, this.schemaFields);
   this.mapInProps = transformerHelpers.mapInProps(this.schemaName, this.schemaFields);
   this.mapOutProps = transformerHelpers.mapOutProps(this.schemaName, this.schemaFields);
 

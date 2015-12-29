@@ -9,8 +9,8 @@ var fields = {
   <%- schemaProps %>
 };
 
-var <%= lowSchemaName %>Schema = new Schema(fields);
+var <%= capSchemaName %>Schema = new Schema(fields);
 
 <%- relationships %>
 
-module.exports = mongoose.model('<%= capSchemaName %>', <%= lowSchemaName %>Schema);
+module.exports = mongoose.model('<%= capSchemaName %>', <%= capSchemaName %>Schema);

@@ -9,7 +9,7 @@ api.<%= pluralName %> = function(req) {
 };
 
 // GET
-api.<%= lowSchemaName %> = function(req) {
+api.<%= schemaName %> = function(req) {
   return req.store.recordItemById('<%= capSchemaName %>', req.params.id);
 };
 
@@ -32,7 +32,7 @@ router.get('/<%= pluralName %>', api.<%= pluralName %>);
 router.post('/<%= pluralName %>', api.add<%= capSchemaName %>);
 
 router.route('/<%= pluralName %>/:id')
-  .get(api.<%= lowSchemaName %>)
+  .get(api.<%= schemaName %>)
   .put(api.edit<%= capSchemaName %>)
   .delete(api.delete<%= capSchemaName %>);
 
