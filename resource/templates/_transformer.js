@@ -1,17 +1,17 @@
 var Mystique = require('mystique');
 
 var <%= capSchemaName %>Transformer = Mystique.Transformer.extend({
-  resourceName: '<%= lowSchemaName %>',
-  mapOut: function(<%= lowSchemaName %>) {
+  resourceName: '<%= schemaName %>',
+  mapOut: function(<%= schemaName %>) {
     return {
-      id: <%= lowSchemaName %>.id,
+      id: <%= schemaName %>.id,
       <%= mapInProps %>
     };
   },
 
   mapIn(req) {
     return {
-      <%= mapOutProps %>
+      <%- mapOutProps %>
     };
   },
 });
