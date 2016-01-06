@@ -81,6 +81,8 @@ ProjectGenerator.prototype.project = function project() {
   var _this = this;
 
   this.template('_package.json', 'package.json');
+  this.template('app.json', 'app.json');
+  this.template('Procfile', 'Procfile');
   this.copy('_.gitignore', '.gitignore');
   this.copy('app.js', 'app.js');
   this.copy('index.js', 'index.js');

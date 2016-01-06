@@ -1,3 +1,3 @@
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/token-ideas');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/token-ideas');
