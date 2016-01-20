@@ -87,10 +87,14 @@ module.exports = function(req, res, next) {
       var Model = Mongoose.model(modelName);
 
       Model.findById(id)
-        .populate([])
+        .populate(options.include)
         .exec((err, model) => {
           if (err) {
             return res.status(500).send(err);
+          }
+
+          if (!model) {
+            return res.status(404).send({message: `${modelName} with the id: ${id} not found`});
           }
 
           req.store.renderItem(model, modelName, options);
@@ -133,13 +137,19 @@ module.exports = function(req, res, next) {
     destroyRecord(modelName, id) {
       var Model = Mongoose.model(modelName);
 
-      Model.remove({_id: id})
+      Model.findById(id)
         .exec((err, model) => {
           if (err) {
             return res.status(500).send(err);
           }
 
-          res.status(204).send();
+          if (!model) {
+            return res.status(404).send({ message: `${modelName} with the id: ${id} not found` });
+          }
+
+          model.remove(() => {
+            res.status(204).send();
+          });
         });
     },
   };
